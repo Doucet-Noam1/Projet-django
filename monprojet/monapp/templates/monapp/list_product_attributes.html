@@ -1,0 +1,22 @@
+{% extends 'monapp/base.html' %}
+{% block title %}
+  Liste des attributs de produit
+{% endblock %}
+{% block contenu %}
+  <h2>{{ titremenu }}</h2>
+  <table class="table">
+    <thead>
+      <th>Nom</th>
+    </thead>
+    <tbody>
+      {% for attribute in product_attributes %}
+        <tr>
+          <td>
+            <a href="{% url 'product-attribute-detail' attribute.id %}">{{ attribute.name }}</a>
+            
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

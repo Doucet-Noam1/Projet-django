@@ -1,0 +1,11 @@
+{% extends 'monapp/base.html' %}
+{% block title %}
+  Détail attribut produit
+{% endblock %}
+{% block contenu %}
+  <h2>{{ titremenu }}</h2>
+  <ul>
+    <li>Nom : {{ product_attribute.name }}</li>
+  </ul>
+  <a href="{% url 'product-attribute-list' %}">Retour à la liste des attributs de produit</a>
+{% endblock %}

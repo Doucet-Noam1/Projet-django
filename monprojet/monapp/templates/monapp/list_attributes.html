@@ -1,0 +1,44 @@
+{% extends 'monapp/base.html' %}
+{% block contenu %}
+<table class="table">
+<thead>
+<th>Nom</th>
+<th>Valeurs</th>
+<th>Position</th>
+<th>Actions</th>
+</thead>
+<tbody>
+{% for attribute in productattributes %}
+<tr>
+<td>{{ attribute.name}}</td>
+<td>
+{% for value in attribute.productattributevalue_set.all %}
+<p>{{ value.value }}</p>
+{% empty %}
+<p>Aucune valeur</p>
+{% endfor %}
+</td>
+<td>
+{% for value in attribute.productattributevalue_set.all %}
+<p>{{ value.position }}</p>
+{% empty %}
+<p>Aucune valeur</p>
+{% endfor %}
+</td>
+<td>
+{% comment %} <a href="{% url 'attribute-detail' attribute.id %}" class="btn btn-primary mt-2">Détails</a>
+<a href="{% url 'attribute-update' attribute.id %}" class="btn btn-warning mt-2">Modifier</a>
+<a href="{% url 'attribute-delete' attribute.id %}" class="btn btn-danger mt-2">Supprimer</a> {% endcomment %}
+</td>
+</tr>
+{% endfor %}
+<!-- Barre de recherche -->
+<p class="lead mb-3 ml-0">Rechercher un élément...</p>
+<form method="GET" action="">
+<input class="form-control" type="text" name="search" placeholder="Tapez ici votre recherche"
+value="{{ request.GET.search }}">
+<button type="submit" class="btn btn-success mt-2">Rechercher</button>
+</form>
+</tbody>
+</table>
+{% endblock %}

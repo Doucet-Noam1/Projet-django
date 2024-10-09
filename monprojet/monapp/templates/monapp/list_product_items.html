@@ -1,0 +1,25 @@
+{% extends 'monapp/base.html' %}
+{% block title %}
+  Liste des déclinaisons de produit
+{% endblock %}
+{% block contenu %}
+  <h2>{{ titremenu }}</h2>
+  <table class="table">
+    <thead>
+      <th>Couleur</th>
+      <th>Code</th>
+      <th>Produit</th>
+    </thead>
+    <tbody>
+      {% for item in product_items %}
+        <tr>
+          <td>
+            <a href="{% url 'product-item-detail' item.id %}">{{ item.color }}</a>
+          </td>
+          <td>{{ item.code }}</td>
+          <td>{{ item.product.name }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'monapp/base.html' %}
+{% block title %}
+  Mon application DJANGO
+{% endblock %}
+{% block contenu %}
+  <table class="table">
+    <thead>
+      <th>Nom</th>
+      <th>Code</th>
+      <th>Prix HT</th>
+      <th>Prix TTC</th>
+      <th>Date Création</th>
+    </thead>
+    <tbody>
+      <!-- Barre de recherche -->
+      <p class="lead mb-3 ml-0">Rechercher un élément...</p>
+      <form method="GET" action="">
+      <input class="form-control" type="text" name="search" placeholder="Tapez ici votre recherche"
+      value="{{ request.GET.search }}">
+      <button type="submit" class="btn btn-success mt-2">Rechercher</button>
+      </form>
+      {% for prdct in products %}
+        <tr>
+          <td>
+            <a href="{% url 'product-detail' prdct.id %}">{{ prdct.name }}</a>
+          </td>
+          <td>{{ prdct.code }}</td>
+          <td>{{ prdct.price_ht }}</td>
+          <td>{{ prdct.price_ttc }}</td>
+          <td>{{ prdct.date_creation }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p>
+    J'ai{% if products|length < 5 %}
+      peu de
+    {% elif products|length < 10 %}
+      quelques
+    {% else %}
+      beaucoup de
+    {% endif %}produits préférés.
+  </p>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'monapp/base.html' %}
+{% block title %}
+  Détail déclinaison produit
+{% endblock %}
+{% block contenu %}
+  <h2>{{ titremenu }}</h2>
+  <ul>
+    <li>Couleur : {{ product_item.color }}</li>
+    <li>Code : {{ product_item.code }}</li>
+    <li>Produit : {{ product_item.product.name }}</li>
+  </ul>
+  <a href="{% url 'product-item-list' %}">Retour à la liste des déclinaisons de produit</a>
+  <a href="{% url 'product-update' product.id %}">modifier</a>
+{% endblock %}
