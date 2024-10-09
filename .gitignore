@@ -1,3 +1,4 @@
-GestionProduits/db.sqlite3
-GestionProduits/GestionProduits/__pycache__
+db.sqlite3
+__pycache__
 venv
+node_modules
