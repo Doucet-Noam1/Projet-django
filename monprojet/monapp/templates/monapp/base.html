@@ -2,10 +2,9 @@
 {% load static %}
 <html lang="fr">
   <head>
-    <meta charset="utf -8" />
+    <meta charset="utf-8" />
     <title>
       {% block title %}
-
       {% endblock %}
     </title>
     {% block styles %}
@@ -22,6 +21,8 @@
           <a href="{% url 'product-add' %}">Créer un nouveau produit</a>
           <a href="{% url 'product-item-list' %}">Déclinaisons de produit</a>
           <a href="{% url 'product-attribute-list' %}">Attributs de produit</a>
+          <a href="{% url 'commande-list' %}">Commandes</a>
+          <a href="{% url 'fournisseur-list' %}">Fournisseurs</a>
           <a href="{% url 'contact' %}">Contact</a>
           {% if user.is_authenticated %}
             <a href="{% url 'logout' %}">Déconnexion</a>
@@ -35,14 +36,13 @@
     <main role="main" class="container top-pushed">
       <div class="jumbotron">
         {% block contenu %}
-
         {% endblock %}
       </div>
     </main>
     <footer class="footer">
       <div class="container">
         <p>
-          &copy; Copyright{% now 'Y' %}by Titof Production Copyrigh (c)
+          &copy; Copyright{% now 'Y' %} by Titof Production Copyright (c)
         </p>
       </div>
     </footer>

@@ -5,7 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from .forms import ContactUsForm, ProductForm
+from .forms import ContactUsForm, ProductForm, ProductAttributeValueForm, FournisseursForm, CommandeForm
 from django.forms import BaseModelForm
 from django.urls import reverse_lazy
 from .models import *
@@ -220,3 +220,119 @@ class ProductAttributeListView(ListView):
         context = super(ProductAttributeListView, self).get_context_data(**kwargs)
         context['titremenu'] = "Liste des attributs"
         return context
+    
+class ProductAttributeValueListView(ListView):
+    model = ProductAttributeValue
+    template_name = "monapp/list_products_attribute_value.html"
+    context_object_name = "products_attribute_value"
+
+    def get_queryset(self):
+        # Surcouche pour filtrer les résultats en fonction de la recherche
+        # Récupérer le terme de recherche depuis la requête GET
+        query = self.request.GET.get("search")
+        if query:
+            # Filtre les produits par nom (insensible à la casse)
+            return ProductAttributeValue.objects.filter(value__icontains=query)
+        # Si aucun terme de recherche, retourner tous les produits
+        return ProductAttributeValue.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductAttributeValueListView, self).get_context_data(**kwargs)
+        context["titremenu"] = "Liste des attributs value"
+        return context
+    
+class ProductAttributeValueCreateView(CreateView):
+    model = ProductAttributeValue
+    form_class = ProductAttributeValueForm
+    template_name = "monapp/new_product_attribute_value.html"
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        product_attribute_value = form.save()
+        return redirect("product-attribute-value-detail", product_attribute_value.id)
+    
+
+class CommandeListView(ListView):
+    model = Commande
+    template_name = "monapp/list_commandes.html"
+    context_object_name = "commandes"
+
+    def get_context_data(self, **kwargs):
+        context = super(CommandeListView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Liste des commandes"
+        return context
+
+
+class CommandeDetailView(DetailView):
+    model = Commande
+    template_name = "monapp/detail_commande.html"
+    context_object_name = "commande"
+
+    def get_context_data(self, **kwargs):
+        context = super(CommandeDetailView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Détails de la commande"
+        return context
+
+
+class CommandeCreateView(CreateView):
+    model = Commande
+    fields = ['produit', 'quantite', 'date', 'status']  # Les champs à ajuster selon ton modèle
+    template_name = "monapp/new_commande.html"
+    
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+class CommandeUpdateView(UpdateView):
+    model = Commande
+    fields = ['produit', 'quantite', 'date', 'status']
+    template_name = "monapp/update_commande.html"
+    
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+class CommandeDeleteView(DeleteView):
+    model = Commande
+    template_name = "monapp/delete_commande.html"
+    success_url = reverse_lazy('commande-list')
+
+class FournisseurListView(ListView):
+    model = Fournisseurs
+    template_name = "monapp/list_fournisseurs.html"
+    context_object_name = "fournisseurs"
+
+    def get_context_data(self, **kwargs):
+        context = super(FournisseurListView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Liste des fournisseurs"
+        return context
+
+class FournisseurDetailView(DetailView):
+    model = Fournisseurs
+    template_name = "monapp/detail_fournisseur.html"
+    context_object_name = "fournisseur"
+
+    def get_context_data(self, **kwargs):
+        context = super(FournisseurDetailView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Détails du fournisseur"
+        return context
+
+
+class FournisseurCreateView(CreateView):
+    model = Fournisseurs
+    fields = ['nom', 'email', 'telephone']  # Les champs à ajuster selon ton modèle
+    template_name = "monapp/new_fournisseur.html"
+    
+    def form_valid(self, form):
+        return super().form_valid(form)
+class FournisseurUpdateView(UpdateView):
+    model = Fournisseurs
+    fields = ['nom', 'email', 'telephone']
+    template_name = "monapp/update_fournisseur.html"
+    
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+class FournisseurDeleteView(DeleteView):
+    model = Fournisseurs
+    template_name = "monapp/delete_fournisseur.html"
+    success_url = reverse_lazy('fournisseur-list')

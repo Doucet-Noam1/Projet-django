@@ -1,0 +1,15 @@
+{% extends 'monapp/base.html' %}
+{% block title %}
+  Détails du Fournisseur
+{% endblock %}
+{% block contenu %}
+  <h2>{{ fournisseur.nom }}</h2>
+  <ul>
+    <li>ID : {{ fournisseur.id }}</li>
+    <li>Email : {{ fournisseur.email }}</li>
+    <li>Téléphone : {{ fournisseur.telephone }}</li>
+    <li>Adresse : {{ fournisseur.adresse }}</li>
+  </ul>
+  <a href="{% url 'fournisseur-list' %}">Retour à la liste des fournisseurs</a>
+  <a href="{% url 'fournisseur-update' fournisseur.id %}">Modifier</a>
+{% endblock %}

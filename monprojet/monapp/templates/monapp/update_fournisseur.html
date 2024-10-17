@@ -1,0 +1,11 @@
+{% extends 'monapp/base.html' %}
+{% block title %}Modifier le Fournisseur{% endblock %}
+{% block contenu %}
+<h2>Modifier le Fournisseur #{{ fournisseur.id }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+</form>
+<a href="{% url 'fournisseur-list' %}">Retour à la liste des fournisseurs</a>
+{% endblock %}

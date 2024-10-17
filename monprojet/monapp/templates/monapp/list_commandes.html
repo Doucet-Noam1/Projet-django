@@ -1,0 +1,34 @@
+{% extends 'monapp/base.html' %}
+{% block title %}Liste des Commandes{% endblock %}
+{% block contenu %}
+<h2>Liste des Commandes</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Produit</th>
+            <th>Quantité</th>
+            <th>Date</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for commande in commandes %}
+        <tr>
+            <td>{{ commande.id }}</td>
+            <td>{{ commande.produit.name }}</td>
+            <td>{{ commande.quantite }}</td>
+            <td>{{ commande.date }}</td>
+            <td>{{ commande.status }}</td>
+            <td>
+                <a href="{% url 'commande-detail' commande.id %}">Détails</a>
+                <a href="{% url 'commande-update' commande.id %}">Modifier</a>
+                <a href="{% url 'commande-delete' commande.id %}">Supprimer</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% comment %} <a href="{% url 'commande-add' %}" class="btn btn-primary">Ajouter une Commande</a> {% endcomment %}
+{% endblock %}

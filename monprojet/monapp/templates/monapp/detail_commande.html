@@ -1,0 +1,15 @@
+{% extends 'monapp/base.html' %}
+{% block title %}
+  Détails de la Commande
+{% endblock %}
+{% block contenu %}
+  <h2>Commande #{{ commande.id }}</h2>
+  <ul>
+    <li>Date de commande : {{ commande.date_commande }}</li>
+    <li>Fournisseur : {{ commande.fournisseur.nom }}</li>
+    <li>Statut : {{ commande.status }}</li>
+    <li>Total : {{ commande.total }}</li>
+  </ul>
+  <a href="{% url 'commande-list' %}">Retour à la liste des commandes</a>
+  <a href="{% url 'commande-update' commande.id %}">Modifier</a>
+{% endblock %}

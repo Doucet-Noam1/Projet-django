@@ -1,0 +1,11 @@
+{% extends 'monapp/base.html' %}
+{% block title %}Modifier la Commande{% endblock %}
+{% block contenu %}
+<h2>Modifier la Commande #{{ commande.id }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+</form>
+<a href="{% url 'commande-list' %}">Retour à la liste des commandes</a>
+{% endblock %}

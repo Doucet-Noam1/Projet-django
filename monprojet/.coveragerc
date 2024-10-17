@@ -1,0 +1,14 @@
+[run]
+source = monapp
+omit =
+    */migrations/*
+    */settings/*
+    */wsgi.py
+    */asgi.py
+    __init__.py
+
+[report]
+show_missing = True
+
+[html]
+directory = htmlcov
