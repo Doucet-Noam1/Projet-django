@@ -1,0 +1,11 @@
+{% extends 'monapp/base.html' %}
+{% block contenu %}
+  <h1>Liste des commandes</h1>
+  <ul>
+    {% for commande in commandes %}
+      <li>{{ commande.id }} - {{ commande.date_commande }} - {{ commande.client }}</li> 
+    {% empty %}
+      <li>Aucune commande disponible.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

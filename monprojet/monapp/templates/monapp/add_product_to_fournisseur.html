@@ -1,0 +1,13 @@
+{% extends 'monapp/base.html' %}
+{% block title %}Ajouter un produit au fournisseur{% endblock %}
+{% block contenu %}
+<h2>Ajouter un produit pour {{ fournisseur.name }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Ajouter le produit</button>
+</form>
+
+<a href="{% url 'fournisseur-detail' fournisseur.id %}">Retour au fournisseur</a>
+{% endblock %}

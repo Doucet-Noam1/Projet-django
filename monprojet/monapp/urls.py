@@ -14,23 +14,25 @@ from .views import (
     ProductCreateView,
     ProductUpdateView,
     ProductAttributeValueCreateView,
-    CommandeListView,         # Importer les nouvelles vues
+    CommandeListView,        
     CommandeDetailView,
     CommandeCreateView,
     CommandeUpdateView,
     CommandeDeleteView,
-    FournisseurListView,      # Importer les nouvelles vues
+    FournisseurListView,      
     FournisseurDetailView,
     FournisseurCreateView,
     FournisseurUpdateView,
     FournisseurDeleteView,
+    FournisseurCommandesView,
+    FournisseurAddProductView
 )
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
     path("products/", ProductListView.as_view(), name="product-list"),
     path("products/<int:pk>/", ProductDetailView.as_view(), name="product-detail"),
-    path("product-items/", ProductItemListView.as_view(), name="product-item-list"),
+    path("product-items/", ProductItemListView.as_view(), name="item-detail"),
     path("product-items/<int:pk>/", ProductItemDetailView.as_view(), name="product-item-detail"),
     path("product-attributes/", ProductAttributeListView.as_view(), name="product-attribute-list"),
     path("product-attributes/<int:pk>/", ProductAttributeDetailView.as_view(), name="product-attribute-detail"),
@@ -41,18 +43,16 @@ urlpatterns = [
     path("product/<pk>/update/", ProductUpdateView.as_view(), name="product-update"),
     path("product/add/", ProductCreateView.as_view(), name="product-add"),
     path("product-attributes/add/", ProductAttributeValueCreateView.as_view(), name="product-attribute-add"),
-
-    # Ajout des routes pour Commande
+    path("fournisseurs/<int:pk>/commandes/", FournisseurCommandesView.as_view(), name="fournisseur-commandes"),
     path("commandes/", CommandeListView.as_view(), name="commande-list"),
     path("commandes/<int:pk>/", CommandeDetailView.as_view(), name="commande-detail"),
-    path("commandes/new/", CommandeCreateView.as_view(), name="commande-create"),
+    path("commandes/add/", CommandeCreateView.as_view(), name="commande-add"),
     path("commandes/<int:pk>/edit/", CommandeUpdateView.as_view(), name="commande-update"),
     path("commandes/<int:pk>/delete/", CommandeDeleteView.as_view(), name="commande-delete"),
-
-    # Ajout des routes pour Fournisseur
+    path('fournisseur/<int:fournisseur_id>/add-product/', FournisseurAddProductView.as_view(), name='add-product-to-fournisseur'),
     path("fournisseurs/", FournisseurListView.as_view(), name="fournisseur-list"),
     path("fournisseurs/<int:pk>/", FournisseurDetailView.as_view(), name="fournisseur-detail"),
-    path("fournisseurs/new/", FournisseurCreateView.as_view(), name="fournisseur-create"),
+    path('fournisseur/add/', FournisseurCreateView.as_view(), name='fournisseur-add'),
     path("fournisseurs/<int:pk>/edit/", FournisseurUpdateView.as_view(), name="fournisseur-update"),
     path("fournisseurs/<int:pk>/delete/", FournisseurDeleteView.as_view(), name="fournisseur-delete"),
 ]

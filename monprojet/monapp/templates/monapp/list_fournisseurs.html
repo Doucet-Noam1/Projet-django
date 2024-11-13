@@ -1,14 +1,13 @@
 {% extends 'monapp/base.html' %}
 {% block title %}Liste des Fournisseurs{% endblock %}
 {% block contenu %}
-<h2>Liste des Fournisseurs</h2>
+<h2>{{ titremenu }}</h2>
 <table class="table">
     <thead>
         <tr>
             <th>ID</th>
             <th>Nom</th>
-            <th>Email</th>
-            <th>Téléphone</th>
+            <th>Produits</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -16,17 +15,24 @@
         {% for fournisseur in fournisseurs %}
         <tr>
             <td>{{ fournisseur.id }}</td>
-            <td>{{ fournisseur.nom }}</td>
-            <td>{{ fournisseur.email }}</td>
-            <td>{{ fournisseur.telephone }}</td>
+            <td>{{ fournisseur.name }}</td>
+            <td>
+                <ul>
+                    {% for product_fournisseur in fournisseur.productfournisseur_set.all %}
+                        <li>{{ product_fournisseur.product.name }} ({{ product_fournisseur.price_ht }} €)</li>
+                    {% empty %}
+                        <li>Aucun produit disponible</li>
+                    {% endfor %}
+                </ul>
+            </td>
             <td>
                 <a href="{% url 'fournisseur-detail' fournisseur.id %}">Détails</a>
                 <a href="{% url 'fournisseur-update' fournisseur.id %}">Modifier</a>
                 <a href="{% url 'fournisseur-delete' fournisseur.id %}">Supprimer</a>
+                <a href="{% url 'add-product-to-fournisseur' fournisseur.id %}">Ajouter un produit</a>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-{% comment %} <a href="{% url 'fournisseur-add' %}" class="btn btn-primary">Ajouter un Fournisseur</a> {% endcomment %}
 {% endblock %}

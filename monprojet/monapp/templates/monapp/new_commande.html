@@ -1,11 +1,33 @@
 {% extends 'monapp/base.html' %}
 {% block title %}Créer une Commande{% endblock %}
 {% block contenu %}
-<h2>Créer une Nouvelle Commande</h2>
+<h2>Créer une Commande</h2>
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Ajouter</button>
+    
+    <h3>Produits à ajouter</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in commande_items %}
+                <tr>
+                    <td>{{ form.product }}</td>
+                    <td>{{ form.quantity }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Créer Commande</button>
 </form>
+
 <a href="{% url 'commande-list' %}">Retour à la liste des commandes</a>
+
 {% endblock %}

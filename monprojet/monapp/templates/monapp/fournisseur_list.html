@@ -1,0 +1,21 @@
+{% extends 'monapp/base.html' %}
+
+{% block contenu %}
+  <h1>Liste des fournisseurs</h1>
+  <ul>
+    {% for fournisseur in fournisseurs %}
+      <li>
+        <strong>{{ fournisseur.name }}</strong>
+        <ul>
+          {% for product_fournisseur in fournisseur.productfournisseur_set.all %}
+            <li>{{ product_fournisseur.product.name }} - Stock: {{ product_fournisseur.stock }} - Prix HT: {{ product_fournisseur.price_ht }}€</li>
+          {% empty %}
+            <li>Aucun produit disponible pour ce fournisseur.</li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% empty %}
+      <li>Aucun fournisseur disponible.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

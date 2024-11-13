@@ -1,15 +1,31 @@
 {% extends 'monapp/base.html' %}
-{% block title %}
-  Mon application DJANGO
-{% endblock %}
+
 {% block contenu %}
-  <h2>{{ product.name }}</h2>
-  <ul>
-    <li>Code : {{ product.code }}</li>
-    <li>Prix HT : {{ product.price_ht }}</li>
-    <li>Prix TTC: {{ product.price_ttc }}</li>
-    <li>Date de création : {{ product.date_creation }}</li>
-  </ul>
-  <a href="{% url 'product-list' %}">Retour à la liste des produits</a>
-  <a href="{% url 'product-update' product.id %}">modifier</a>
+<h1>Détail du produit : {{ product.name }}</h1>
+<p><strong>Description :</strong> {{ product.description }}</p>
+
+<!-- Ajouter ici des informations supplémentaires sur le produit -->
+{% if product.attributes.all %}
+    <h3>Attributs associés :</h3>
+    <ul>
+        {% for attribute in product.attributes.all %}
+        <li><strong>{{ attribute.product_attribute.name }}:</strong> {{ attribute.value }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun attribut associé à ce produit.</p>
+{% endif %}
+
+<!-- Affichage des prix en fonction des fournisseurs -->
+<h3>Prix par fournisseur :</h3>
+{% if product.productfournisseur_set.all %}
+    <ul>
+        {% for price in product.productfournisseur_set.all %}
+        <li><strong>{{ price.fournisseur.name }}:</strong> {{ price.price_ttc }} EUR</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun prix disponible pour ce produit.</p>
+{% endif %}
+
 {% endblock %}

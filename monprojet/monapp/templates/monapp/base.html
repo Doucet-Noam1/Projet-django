@@ -19,11 +19,13 @@
           <a href="{% url 'home' %}">Accueil</a>
           <a href="{% url 'product-list' %}">Produits</a>
           <a href="{% url 'product-add' %}">Créer un nouveau produit</a>
-          <a href="{% url 'product-item-list' %}">Déclinaisons de produit</a>
           <a href="{% url 'product-attribute-list' %}">Attributs de produit</a>
           <a href="{% url 'commande-list' %}">Commandes</a>
+          <a href="{% url 'commande-add' %}">Créer une nouvelle commande</a> 
           <a href="{% url 'fournisseur-list' %}">Fournisseurs</a>
+          <a href="{% url 'fournisseur-add' %}">Créer un nouveau fournisseur</a>  
           <a href="{% url 'contact' %}">Contact</a>
+
           {% if user.is_authenticated %}
             <a href="{% url 'logout' %}">Déconnexion</a>
           {% else %}
@@ -33,12 +35,14 @@
         {% endblock %}
       </nav>
     {% endblock %}
+    
     <main role="main" class="container top-pushed">
       <div class="jumbotron">
         {% block contenu %}
         {% endblock %}
       </div>
     </main>
+
     <footer class="footer">
       <div class="container">
         <p>

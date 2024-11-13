@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Modifier Commande</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <h2>Produits dans la commande :</h2>
+    <ul>
+      {% for item in commande_items %}
+        <li>
+          <label for="product_{{ item.id }}">Produit</label>
+          <select name="product_{{ item.id }}">
+            {% for product in produits %}
+              <option value="{{ product.id }}" {% if item.product.id == product.id %}selected{% endif %}>{{ product.name }}</option>
+            {% endfor %}
+          </select>
+          <label for="quantity_{{ item.id }}">Quantité</label>
+          <input type="number" name="quantity_{{ item.id }}" value="{{ item.quantity }}">
+        </li>
+      {% endfor %}
+    </ul>
+    <button type="submit">Enregistrer</button>
+  </form>
+{% endblock %}
